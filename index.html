@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flores Amarillas Para Ti 💛</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Great+Vibes&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="relative text-gray-800 flex flex-col justify-between min-h-screen selection:bg-amber-200">
+
+    <!-- Oculto HTML Audio Tag (Mute / Unmute & Autoplay support) -->
+    <!-- Reemplaza "cancion.mp3" con la ruta o enlace directo a tu archivo de música -->
+    <audio id="bg-audio" loop autoplay preload="auto">
+        <source src="frad - first date.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <!-- Background Floating Petals Canvas -->
+    <canvas id="petals-canvas"></canvas>
+
+    <!-- Glowing Background Effect -->
+    <div class="ambient-glow"></div>
+
+    <!-- Top Music & Theme Controls -->
+    <header class="relative z-20 w-full max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <span class="text-2xl">🌻</span>
+            <span class="font-serif italic font-semibold text-amber-900 text-lg sm:text-xl">Para Alguien Único</span>
+        </div>
+        <button id="music-btn" onclick="toggleMute()" class="glass-card px-4 py-2 rounded-full flex items-center space-x-2 text-sm text-amber-900 hover:bg-yellow-100 transition shadow-sm border border-yellow-300 focus:outline-none">
+            <i id="music-icon" class="fas fa-volume-up text-amber-600"></i>
+            <span id="music-text" class="font-medium hidden sm:inline">Silenciar</span>
+        </button>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="relative z-20 w-full max-w-4xl mx-auto px-4 py-6 flex-grow flex flex-col items-center justify-center text-center">
+
+        <!-- Poetic Title Banner -->
+        <div class="mb-6 space-y-3">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-amber-100/80 border border-amber-300 text-amber-800 text-xs sm:text-sm font-medium tracking-wide uppercase shadow-sm">
+                Un detalle desde el corazón ✨
+            </span>
+            <h1 class="font-cursive text-5xl sm:text-7xl text-amber-900 drop-shadow-sm leading-tight">
+                Flores Amarillas Para Ti
+            </h1>
+            <p class="font-serif italic text-lg sm:text-xl text-amber-800 max-w-2xl mx-auto font-medium">
+                "Para entregarte la luz, el cariño y el reconocimiento sincero que siempre mereciste tener."
+            </p>
+        </div>
+
+        <!-- Interactive Sunflower Garden / Bouquet SVG -->
+        <div class="relative w-full max-w-md my-4 flex justify-center items-center">
+            <svg id="flower-garden" viewBox="0 0 500 400" class="w-full h-auto max-h-[320px] filter drop-shadow-lg overflow-visible">
+                <!-- Stems -->
+                <g class="flower-stem">
+                    <path d="M 170 380 Q 180 260 160 180" fill="none" stroke="#65a30d" stroke-width="8" stroke-linecap="round"/>
+                    <path d="M 170 310 Q 120 290 140 260 C 160 270 170 290 170 310" fill="#65a30d"/>
+                </g>
+                <g class="flower-stem" style="animation-delay: -1.5s;">
+                    <path d="M 250 390 Q 250 240 250 120" fill="none" stroke="#4d7c0f" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M 250 280 Q 190 260 210 230 C 230 240 245 260 250 280" fill="#4d7c0f"/>
+                    <path d="M 250 240 Q 310 220 290 190 C 270 200 255 220 250 240" fill="#4d7c0f"/>
+                </g>
+                <g class="flower-stem" style="animation-delay: -3s;">
+                    <path d="M 330 380 Q 320 270 340 190" fill="none" stroke="#65a30d" stroke-width="8" stroke-linecap="round"/>
+                    <path d="M 330 300 Q 380 280 360 250 C 340 260 330 280 330 300" fill="#65a30d"/>
+                </g>
+
+                <!-- Bouquet Ribbon -->
+                <path d="M 180 340 Q 250 360 320 340 Q 250 380 180 340" fill="#facc15" opacity="0.9"/>
+                <path d="M 230 350 L 210 400 L 240 390 Z" fill="#ca8a04"/>
+                <path d="M 270 350 L 290 400 L 260 390 Z" fill="#ca8a04"/>
+                <circle cx="250" cy="352" r="8" fill="#fef08a"/>
+
+                <!-- LEFT FLOWER -->
+                <g class="flower-group cursor-pointer" onclick="triggerFlowerSparkle(160, 180)" transform="translate(160, 180)">
+                    <g class="flower-petal">
+                        <ellipse cx="0" cy="-35" rx="10" ry="25" fill="#facc15"/>
+                        <ellipse cx="0" cy="35" rx="10" ry="25" fill="#facc15"/>
+                        <ellipse cx="-35" cy="0" rx="25" ry="10" fill="#facc15"/>
+                        <ellipse cx="35" cy="0" rx="25" ry="10" fill="#facc15"/>
+                        <ellipse cx="-25" cy="-25" rx="10" ry="25" fill="#fde047" transform="rotate(45 -25 -25)"/>
+                        <ellipse cx="25" cy="25" rx="10" ry="25" fill="#fde047" transform="rotate(45 25 25)"/>
+                        <ellipse cx="-25" cy="25" rx="10" ry="25" fill="#fde047" transform="rotate(-45 -25 25)"/>
+                        <ellipse cx="25" cy="-25" rx="10" ry="25" fill="#fde047" transform="rotate(-45 25 -25)"/>
+                    </g>
+                    <circle cx="0" cy="0" r="18" class="sunflower-center"/>
+                    <circle cx="0" cy="0" r="14" fill="#78350f" stroke="#a16207" stroke-width="2" stroke-dasharray="3,2"/>
+                </g>
+
+                <!-- RIGHT FLOWER -->
+                <g class="flower-group cursor-pointer" onclick="triggerFlowerSparkle(340, 190)" transform="translate(340, 190)">
+                    <g class="flower-petal">
+                        <ellipse cx="0" cy="-35" rx="10" ry="25" fill="#facc15"/>
+                        <ellipse cx="0" cy="35" rx="10" ry="25" fill="#facc15"/>
+                        <ellipse cx="-35" cy="0" rx="25" ry="10" fill="#facc15"/>
+                        <ellipse cx="35" cy="0" rx="25" ry="10" fill="#facc15"/>
+                        <ellipse cx="-25" cy="-25" rx="10" ry="25" fill="#fde047" transform="rotate(45 -25 -25)"/>
+                        <ellipse cx="25" cy="25" rx="10" ry="25" fill="#fde047" transform="rotate(45 25 25)"/>
+                        <ellipse cx="-25" cy="25" rx="10" ry="25" fill="#fde047" transform="rotate(-45 -25 25)"/>
+                        <ellipse cx="25" cy="-25" rx="10" ry="25" fill="#fde047" transform="rotate(-45 25 -25)"/>
+                    </g>
+                    <circle cx="0" cy="0" r="18" class="sunflower-center"/>
+                    <circle cx="0" cy="0" r="14" fill="#78350f" stroke="#a16207" stroke-width="2" stroke-dasharray="3,2"/>
+                </g>
+
+                <!-- CENTER BIG SUNFLOWER -->
+                <g class="flower-group cursor-pointer" onclick="triggerFlowerSparkle(250, 120)" transform="translate(250, 120)">
+                    <g class="flower-petal">
+                        <g fill="#eab308">
+                            <path d="M 0 0 L -12 -55 Q 0 -68 12 -55 Z"/>
+                            <path d="M 0 0 L -12 -55 Q 0 -68 12 -55 Z" transform="rotate(30)"/>
+                            <path d="M 0 0 L -12 -55 Q 0 -68 12 -55 Z" transform="rotate(60)"/>
+                            <path d="M 0 0 L -12 -55 Q 0 -68 12 -55 Z" transform="rotate(90)"/>
+                            <path d="M 0 0 L -12 -55 Q 0 -68 12 -55 Z" transform="rotate(120)"/>
+                            <path d="M 0 0 L -12 -55 Q 0 -68 12 -55 Z" transform="rotate(150)"/>
+                            <path d="M 0 0 L -12 -55 Q 0 -68 12 -55 Z" transform="rotate(180)"/>
+                            <path d="M 0 0 L -12 -55 Q 0 -68 12 -55 Z" transform="rotate(210)"/>
+                            <path d="M 0 0 L -12 -55 Q 0 -68 12 -55 Z" transform="rotate(240)"/>
+                            <path d="M 0 0 L -12 -55 Q 0 -68 12 -55 Z" transform="rotate(270)"/>
+                            <path d="M 0 0 L -12 -55 Q 0 -68 12 -55 Z" transform="rotate(300)"/>
+                            <path d="M 0 0 L -12 -55 Q 0 -68 12 -55 Z" transform="rotate(330)"/>
+                        </g>
+                        <g fill="#facc15">
+                            <path d="M 0 0 L -10 -50 Q 0 -62 10 -50 Z" transform="rotate(15)"/>
+                            <path d="M 0 0 L -10 -50 Q 0 -62 10 -50 Z" transform="rotate(45)"/>
+                            <path d="M 0 0 L -10 -50 Q 0 -62 10 -50 Z" transform="rotate(75)"/>
+                            <path d="M 0 0 L -10 -50 Q 0 -62 10 -50 Z" transform="rotate(105)"/>
+                            <path d="M 0 0 L -10 -50 Q 0 -62 10 -50 Z" transform="rotate(135)"/>
+                            <path d="M 0 0 L -10 -50 Q 0 -62 10 -50 Z" transform="rotate(165)"/>
+                            <path d="M 0 0 L -10 -50 Q 0 -62 10 -50 Z" transform="rotate(195)"/>
+                            <path d="M 0 0 L -10 -50 Q 0 -62 10 -50 Z" transform="rotate(225)"/>
+                            <path d="M 0 0 L -10 -50 Q 0 -62 10 -50 Z" transform="rotate(255)"/>
+                            <path d="M 0 0 L -10 -50 Q 0 -62 10 -50 Z" transform="rotate(285)"/>
+                            <path d="M 0 0 L -10 -50 Q 0 -62 10 -50 Z" transform="rotate(315)"/>
+                            <path d="M 0 0 L -10 -50 Q 0 -62 10 -50 Z" transform="rotate(345)"/>
+                        </g>
+                    </g>
+                    <circle cx="0" cy="0" r="26" class="sunflower-center"/>
+                    <circle cx="0" cy="0" r="21" fill="#451a03"/>
+                    <circle cx="0" cy="0" r="18" fill="none" stroke="#ca8a04" stroke-width="2" stroke-dasharray="4,2"/>
+                </g>
+            </svg>
+        </div>
+
+        <p class="text-xs text-amber-700/80 mb-6 font-medium animate-pulse">
+            ✨ (Toca las flores para hacerlas brillar) ✨
+        </p>
+
+        <!-- Interactive Buttons Group -->
+        <div class="flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-md my-2">
+            <button onclick="openLetter()" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 text-amber-950 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition duration-200 flex items-center justify-center space-x-3">
+                <i class="fas fa-envelope-open-text text-lg"></i>
+                <span>Abrir Carta Especial</span>
+            </button>
+
+            <button onclick="triggerSurprise()" class="w-full sm:w-auto px-7 py-3.5 rounded-full glass-card border border-yellow-400 text-amber-900 font-semibold hover:bg-yellow-200/60 shadow-md transform hover:-translate-y-0.5 transition duration-200 flex items-center justify-center space-x-2">
+                <span>💛 Recibir Regalo Sorpresa</span>
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer Dedication -->
+    <footer class="relative z-20 w-full py-6 text-center text-xs sm:text-sm text-amber-800/80">
+        Hecho con todo el cariño del mundo para ti • <span class="font-semibold text-amber-900">Siempre mereces lo mejor</span>
+    </footer>
+
+    <!-- Animated Frog Gift -->
+    <div id="frog-gift-overlay" class="frog-gift-overlay" onclick="closeFrogGift(event)">
+        <div class="frog-gift-card" onclick="event.stopPropagation()">
+            <button class="frog-close" onclick="closeFrogGift()" aria-label="Cerrar">×</button>
+            <div class="frog-gift-title">¡Una florecita para ti! 💛</div>
+
+            <div class="frog-scene">
+                <div class="lily-pad"></div>
+
+                <div class="frog" aria-label="Ranita entregando una flor">
+                    <div class="frog-eye left"></div>
+                    <div class="frog-eye right"></div>
+                    <div class="frog-body"></div>
+                    <div class="frog-belly"></div>
+                    <div class="frog-cheek left"></div>
+                    <div class="frog-cheek right"></div>
+                    <div class="frog-mouth"></div>
+                    <div class="frog-arm">
+                        <div class="frog-hand"></div>
+                    </div>
+                </div>
+
+                <div class="flower-gift">
+                    <div class="gift-stem"></div>
+                    <div class="gift-leaf"></div>
+                    <div class="gift-head">
+                        <span class="gift-petal"></span>
+                        <span class="gift-petal"></span>
+                        <span class="gift-petal"></span>
+                        <span class="gift-petal"></span>
+                        <span class="gift-petal"></span>
+                        <span class="gift-petal"></span>
+                        <span class="gift-petal"></span>
+                        <span class="gift-petal"></span>
+                        <span class="gift-center"></span>
+                    </div>
+                </div>
+
+                <span class="gift-heart h1">💛</span>
+                <span class="gift-heart h2">✨</span>
+                <span class="gift-heart h3">💛</span>
+
+                <div class="frog-message">La ranita cruzó todo el jardín para entregártela 🐸🌼</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Letter Envelope Modal -->
+    <div id="letter-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-amber-950/40 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div id="modal-card" class="relative w-full max-w-xl glass-card bg-amber-50/95 border-2 border-yellow-300 rounded-3xl p-6 sm:p-8 envelope-shadow transform scale-90 transition-transform duration-300 text-left my-auto">
+            
+            <button onclick="closeLetter()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-yellow-200/60 text-amber-900 hover:bg-yellow-300 flex items-center justify-center transition">
+                <i class="fas fa-times text-base"></i>
+            </button>
+
+            <div class="border-b border-amber-200 pb-4 mb-4 flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-yellow-300 flex items-center justify-center text-amber-900 text-xl font-cursive">
+                    🌻
+                </div>
+                <div>
+                    <h2 class="font-serif font-bold text-xl sm:text-2xl text-amber-950">Una Carta Para Tu Corazón</h2>
+                    <p class="text-xs text-amber-700">Con luz, cariño y sanación</p>
+                </div>
+            </div>
+
+            <div class="max-h-[60vh] overflow-y-auto custom-scroll pr-2 space-y-4 text-amber-900 text-sm sm:text-base leading-relaxed font-sans">
+                <p class="font-semibold text-amber-800 text-base">
+                    Hola, alguien muy especial...
+                </p>
+                <p>
+                    Hoy quise darte estas flores amarillas porque simbolizan luz, calidez y la alegría que mereces llevar siempre en tu vida.
+                </p>
+                <p>
+                    A veces el mundo o las personas no nos entregan el valor, la delicadeza o el aprecio que realmente merecemos. Sé que quizás en el pasado no recibiste los detalles, el cuidado o las palabras sinceras que tu lindo corazón necesitaba.
+                </p>
+                <p class="bg-yellow-100/70 p-4 rounded-2xl border-l-4 border-yellow-400 italic font-serif">
+                    "Estas flores amarillas no son solo un gesto bonito; son un recordatorio de que eres valiosa/o, que tu presencia ilumina a quienes te rodean y que mereces recibir solo lo mejor, lo más sincero y lo más puro."
+                </p>
+                <p>
+                    Que cada pétalo de estas flores te recuerde que jamás debes conformarte con menos de lo que vale tu alma. Espero que esto saque una sonrisa en ti hoy y siempre.
+                </p>
+                <div class="pt-4 text-right">
+                    <p class="font-hand text-2xl sm:text-3xl text-amber-800">Con todo mi aprecio y cariño ✨</p>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-amber-200 flex justify-end">
+                <button onclick="closeLetter()" class="px-6 py-2.5 rounded-full bg-amber-400 hover:bg-amber-500 text-amber-950 font-medium text-sm transition shadow-sm">
+                    Guardar en el corazón 💛
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,440 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Canvas full background layer */
+#petals-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Glowing ambient light background */
+.ambient-glow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vw;
+    max-width: 600px;
+    max-height: 600px;
+    background: radial-gradient(circle, rgba(254, 224, 71, 0.35) 0%, rgba(253, 230, 138, 0.15) 50%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    animation: pulseGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.6; }
+    100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(253, 224, 71, 0.4);
+    box-shadow: 0 20px 40px rgba(202, 138, 4, 0.12);
+}
+
+/* Custom Animated Flowers CSS */
+.flower-stem {
+    transform-origin: bottom center;
+    animation: swayStem 4s ease-in-out infinite alternate;
+}
+
+@keyframes swayStem {
+    0% { transform: rotate(-2deg); }
+    100% { transform: rotate(2deg); }
+}
+
+.sunflower-center {
+    fill: #582f0e;
+    transition: transform 0.5s ease;
+}
+
+.flower-petal {
+    fill: #facc15;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.flower-group:hover .flower-petal {
+    fill: #fde047;
+    filter: drop-shadow(0 0 6px rgba(250, 204, 21, 0.8));
+}
+
+.flower-group:hover .sunflower-center {
+    transform: scale(1.05);
+}
+
+/* Letter Modal Transitions */
+.envelope-shadow {
+    box-shadow: 0 15px 35px -5px rgba(202, 138, 4, 0.25);
+}
+
+/* Custom Scrollbar for Letter */
+.custom-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+    background: rgba(254, 240, 138, 0.3);
+    border-radius: 10px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: #facc15;
+    border-radius: 10px;
+}
+
+/* RANITA ENTREGANDO UNA FLOR AMARILLA */
+.frog-gift-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(68, 45, 15, 0.38);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .35s ease;
+}
+
+.frog-gift-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.frog-gift-card {
+    position: relative;
+    width: min(430px, 94vw);
+    min-height: 430px;
+    overflow: hidden;
+    border: 2px solid rgba(253, 224, 71, .7);
+    border-radius: 32px;
+    background: linear-gradient(180deg, #fffdf2 0%, #fff7cf 100%);
+    box-shadow: 0 25px 70px rgba(120, 83, 10, .28);
+    transform: translateY(25px) scale(.9);
+    transition: transform .5s cubic-bezier(.2,.9,.25,1.2);
+}
+
+.frog-gift-overlay.show .frog-gift-card {
+    transform: translateY(0) scale(1);
+}
+
+.frog-gift-title {
+    position: relative;
+    z-index: 5;
+    padding-top: 25px;
+    text-align: center;
+    color: #78350f;
+    font-family: 'Caveat', cursive;
+    font-size: 31px;
+    font-weight: 700;
+}
+
+.frog-scene {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 22px;
+    height: 320px;
+}
+
+.lily-pad {
+    position: absolute;
+    left: 50%;
+    bottom: 8px;
+    width: 250px;
+    height: 62px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 50% 35%, #86efac 0%, #4ade80 62%, #22c55e 100%);
+    box-shadow: 0 12px 18px rgba(34, 197, 94, .25);
+}
+
+.lily-pad::after {
+    content: "";
+    position: absolute;
+    right: 48%;
+    top: -1px;
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 31px solid #fff7cf;
+}
+
+.frog {
+    position: absolute;
+    left: 78px;
+    bottom: 48px;
+    width: 145px;
+    height: 150px;
+    animation: frogBounce 1.8s ease-in-out infinite;
+}
+
+.frog-body {
+    position: absolute;
+    left: 22px;
+    bottom: 0;
+    width: 105px;
+    height: 95px;
+    border-radius: 52% 52% 46% 46%;
+    background: linear-gradient(145deg, #86efac, #22c55e);
+    border: 3px solid #15803d;
+    box-shadow: inset -8px -10px 0 rgba(21, 128, 61, .12);
+}
+
+.frog-belly {
+    position: absolute;
+    left: 43px;
+    bottom: 8px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #bbf7d0;
+    opacity: .85;
+}
+
+.frog-eye {
+    position: absolute;
+    top: 12px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #4ade80;
+    border: 3px solid #15803d;
+    z-index: 2;
+}
+
+.frog-eye.left { left: 15px; }
+.frog-eye.right { right: 15px; }
+
+.frog-eye::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 9px;
+    width: 13px;
+    height: 17px;
+    border-radius: 50%;
+    background: #17230e;
+    box-shadow: 3px 2px 0 white;
+}
+
+.frog-mouth {
+    position: absolute;
+    left: 48px;
+    top: 76px;
+    width: 48px;
+    height: 22px;
+    border-bottom: 4px solid #166534;
+    border-radius: 0 0 50% 50%;
+    z-index: 4;
+}
+
+.frog-cheek {
+    position: absolute;
+    top: 76px;
+    width: 16px;
+    height: 9px;
+    border-radius: 50%;
+    background: #fda4af;
+    opacity: .65;
+    z-index: 4;
+}
+
+.frog-cheek.left { left: 29px; }
+.frog-cheek.right { right: 29px; }
+
+.frog-arm {
+    position: absolute;
+    z-index: 6;
+    width: 76px;
+    height: 18px;
+    top: 78px;
+    left: 93px;
+    border-radius: 50%;
+    background: #4ade80;
+    border: 3px solid #15803d;
+    transform-origin: left center;
+    transform: rotate(-8deg);
+    animation: offerFlower 2.2s ease-in-out infinite;
+}
+
+.frog-hand {
+    position: absolute;
+    right: -10px;
+    top: -6px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4ade80;
+    border: 3px solid #15803d;
+}
+
+.flower-gift {
+    position: absolute;
+    left: 270px;
+    bottom: 123px;
+    width: 92px;
+    height: 150px;
+    transform-origin: bottom center;
+    animation: flowerSway 2.2s ease-in-out infinite;
+}
+
+.gift-stem {
+    position: absolute;
+    left: 44px;
+    bottom: 0;
+    width: 6px;
+    height: 120px;
+    border-radius: 10px;
+    background: #65a30d;
+    transform: rotate(7deg);
+}
+
+.gift-leaf {
+    position: absolute;
+    left: 27px;
+    bottom: 43px;
+    width: 43px;
+    height: 19px;
+    border-radius: 100% 0 100% 0;
+    background: #4d7c0f;
+    transform: rotate(-22deg);
+}
+
+.gift-head {
+    position: absolute;
+    left: 4px;
+    top: 0;
+    width: 84px;
+    height: 84px;
+    transform: scale(.1);
+    opacity: 0;
+    animation: flowerBloom .7s .45s cubic-bezier(.2,1.5,.3,1) forwards;
+}
+
+.gift-petal {
+    position: absolute;
+    left: 33px;
+    top: 4px;
+    width: 18px;
+    height: 39px;
+    border-radius: 55% 55% 45% 45%;
+    background: #facc15;
+    transform-origin: 9px 38px;
+}
+
+.gift-petal:nth-child(1) { transform: rotate(0deg); }
+.gift-petal:nth-child(2) { transform: rotate(45deg); }
+.gift-petal:nth-child(3) { transform: rotate(90deg); }
+.gift-petal:nth-child(4) { transform: rotate(135deg); }
+.gift-petal:nth-child(5) { transform: rotate(180deg); }
+.gift-petal:nth-child(6) { transform: rotate(225deg); }
+.gift-petal:nth-child(7) { transform: rotate(270deg); }
+.gift-petal:nth-child(8) { transform: rotate(315deg); }
+
+.gift-center {
+    position: absolute;
+    left: 28px;
+    top: 29px;
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    background: #78350f;
+    border: 3px solid #a16207;
+}
+
+.gift-heart {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0;
+    animation: heartFloat 2.4s ease-out infinite;
+}
+
+.gift-heart.h1 { left: 34px; top: 80px; animation-delay: .7s; }
+.gift-heart.h2 { left: 330px; top: 120px; animation-delay: 1.2s; }
+.gift-heart.h3 { left: 235px; top: 55px; animation-delay: 1.7s; }
+
+.frog-close {
+    position: absolute;
+    z-index: 10;
+    top: 14px;
+    right: 14px;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(254, 240, 138, .85);
+    color: #78350f;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.frog-message {
+    position: absolute;
+    z-index: 7;
+    left: 0;
+    right: 0;
+    bottom: 34px;
+    text-align: center;
+    color: #92400e;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+@keyframes frogBounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-9px) rotate(-2deg); }
+}
+
+@keyframes offerFlower {
+    0%, 100% { transform: rotate(-8deg) translateX(0); }
+    50% { transform: rotate(-3deg) translateX(5px); }
+}
+
+@keyframes flowerSway {
+    0%, 100% { transform: rotate(5deg) translateY(0); }
+    50% { transform: rotate(-3deg) translateY(-5px); }
+}
+
+@keyframes flowerBloom {
+    0% { transform: scale(.1) rotate(-30deg); opacity: 0; }
+    70% { transform: scale(1.12) rotate(5deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes heartFloat {
+    0% { opacity: 0; transform: translateY(20px) scale(.5); }
+    25% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-70px) scale(1.15); }
+}
+
+@media (max-width: 430px) {
+    .frog { left: 42px; transform: scale(.9); transform-origin: bottom left; }
+    .flower-gift { left: 220px; transform: scale(.9); transform-origin: bottom center; }
+    .frog-message { bottom: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .frog, .frog-arm, .flower-gift, .gift-head, .gift-heart {
+        animation: none !important;
+    }
+    .gift-head { transform: scale(1); opacity: 1; }
+}
